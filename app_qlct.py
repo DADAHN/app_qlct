@@ -40,16 +40,13 @@ def view():
     for i in range(len(data)):
         if data[i][1]==Name.get():
             data_view.append(data[i])
-    print(data_view)
     sheet.set_sheet_data(data_view)
-            #Date.set(data[i][0])
-            #Name.set(data[i][1])
-            #Amount.set(data[i][2])
+           
 def reset():
     sheet.set_sheet_data(data)        
 def delete():
     for i in range(len(data)):
-        if data[i][1]==Name.get() and data[i][0]==Date.get():
+        if data[i][0]==Date.get() and data[i][1]==Name.get():
             del data[i]
     export_file()
     sheet.set_sheet_data(data)
@@ -110,9 +107,20 @@ sheet = Sheet(frame5,
               theme= "dark",
               headers=["Ngày chi tiêu","Tên khoản chi","Số tiền chi"]
               )
-##sheet.enable_bindings()
-##sheet.set_sheet_data(data)
+
+
+#Import file csv:
+header=[]
+path=open('/Users/longnguyenhoang/Desktop/BTVN/app_qlct/app_qlct.csv','r')
+reader=csv.reader(path)
+header=next(reader)
+for row in reader:
+    data.append(row)
+sheet.set_sheet_data(data)
+
 sheet.pack()
+
+
 
 
 root.mainloop()
